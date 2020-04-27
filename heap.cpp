@@ -3,11 +3,19 @@
 using namespace std;
 
 int Heap::getMin() const {
-
+    return v[1];
 }
 
 int Heap::getMax() const {
-
+    if(v.size() >= 4) {
+        if(v[2] > v[3]) {
+            return v[2];
+        }
+        return v[3];
+    } else if(v.size() == 3) {
+        return v[2];
+    }
+    return v[1];
 }
 
 int Heap::insert(int x) {
