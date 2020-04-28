@@ -1,5 +1,5 @@
-#include <fstream>
 #include "heap.h"
+#include <fstream>
 
 using namespace std;
 
@@ -13,61 +13,43 @@ int main(int argc, char* argv[]) {
     size_t space;
     size_t comma;
     string command;
+    string word;
 
     ifstream ifs;
     string line;
 
-    ifs.open("PA2_dataset.txt");
+    ifs.open("/autograder/submission/PA2_dataset.txt");
 
     while(ifs) {
         getline(ifs, line);
-        cout << line.substr(0, line.size()) << endl;
+        if(line.substr(0, line.size()) + "" != "") {
+            h1.insert(stoi(line.substr(0, line.size()) + ""));
+        }
     }
-    h1.printHeap();
-    // h.insert(69);
-    // h.insert(420);
-    // h.insert(rand() % 100);
-    // h.insert(rand() % 100);
-    // h.insert(rand() % 100);
-    // h.insert(rand() % 100);
-    // h.insert(rand() % 100);
-    // h.insert(rand() % 100);
-    // h.insert(rand() % 100);
-    // h.insert(1);
-    // h.insert(4);
-    // h.insert(8);
-    // h.insert(15);
-    // h.insert(21);
-    // h.insert(41);
-    // h.insert(83);
-    // h.insert(165);
-    // h.insert(331);
-    // h.insert(-1);
-    // h.printHeap();
-    // cout << "min = " << h.getMin() << endl;
-    // cout << "inserted " << h.insert(45) << endl;
-    // h.printHeap();
-    // cout << "max = " << h.getMax() << endl;
-    // h.printHeap();
-    // cout << "inserted " << h.insert(685) << endl;
-    // h.printHeap();
-    // cout << "max = " << h.getMax() << endl;
-    // cout << "deleted " << h.deleteMin() << endl;
-    // cout << "---" << endl;
-    // cout << "deleted " << h.deleteMin() << endl;
-    // h.printHeap();
-    // cout << "deleted " << h.deleteMax() << endl;
-    // h.printHeap();
-    // cout << "deleted " << h.deleteMin() << endl;
-    // h.printHeap();
-    // cout << "deleted " << h.deleteMax() << endl;
-    // h.printHeap();
-    // cout << "max = " << h.getMax() << endl;
-    // cout << "min = " << h.getMin() << endl;
-    // h.printHeap();
-    // cout << "Min = " << h.getMin() << endl;
-    // cout << "Max = " << h.getMax() << endl;
-    // h.deleteMax();
-    // h.printHeap();
+
+    for(int i = 0; i < argv1.size(); i++) {
+        space = argv1.find(" ", i);
+        comma = argv1.find(",", i);
+        if(space < comma) {
+            command = argv1.substr(i, space - i);
+            word = argv1.substr(space + 1, comma - space - 1);
+        } else {
+            command = argv1.substr(i, comma - i);
+        }
+
+        if(!command.compare("insert")) {
+            cout <<  "inserted " << h1.insert(stoi(word + "")) << endl;
+        } else if(!command.compare("getMin")) {
+            cout << "min = " << h1.getMin() << endl;
+        } else if(!command.compare("getMax")) {
+            cout << "max = " << h1.getMax() << endl;
+        } else if(!command.compare("deleteMin")) {
+            cout << "deleted " << h1.deleteMin() << endl;
+        } else if(!command.compare("deleteMax")) {
+            cout << "deleted " << h1.deleteMax() << endl;
+        } else if(!command.compare("printHeap")) {
+            h1.printHeap();
+        }
+    }
     return 0;
 }
